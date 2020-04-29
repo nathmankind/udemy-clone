@@ -112,6 +112,15 @@
       "userType": "student",
       "favouriteVideo": [],
       "id": 14
+    },
+    {
+      "name": "Olufunke Adigun",
+      "email": "olufadigun@gmail.com",
+      "profession": "data engineer",
+      "userType": "student",
+      "profileImg": "",
+      "favouriteVideo": [],
+      "id": 15
     }
   ],
   "companies": [

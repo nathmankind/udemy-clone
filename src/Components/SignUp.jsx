@@ -35,6 +35,7 @@ class SignUp extends Component {
     })
       .then(res => res.json())
       .then(result => {
+        console.log(result);
         let responseJson = result;
         if (responseJson) {
           sessionStorage.setItem("userData", JSON.stringify(responseJson));
@@ -52,17 +53,8 @@ class SignUp extends Component {
   };
 
   render() {
-    // const responseGoogle = response => {
-    //   console.log(response);
-    //   this.setState({ userDetails: response.profileObj, isUserLoggedIn: true });
-    // };
     return (
       <div>
-        <TopNavbar
-          userLoggedIn={this.state.isUserLoggedIn}
-          logout={this.logout}
-        />
-
         <div className="container">
           <div className="center-form">
             {!this.state.userLoggedIn && (

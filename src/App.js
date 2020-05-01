@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "video-react/dist/video-react.css";
 import Home from "./Components/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -9,6 +10,9 @@ import WebDevClass from "./Components/WebDevClass";
 import Learn from "./Components/Learn";
 import TopNavbar from "./Components/TopNavbar";
 import Login from "./Components/Login";
+import Instructor from "./Components/InstructorReg";
+import VideoUpload from "./Components/VideoUpload";
+import Classroom from "./Components/NewVideo/Classroom";
 
 function App() {
   return (
@@ -22,6 +26,9 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/web-development" component={WebDevClass} />
           <Route path="/learn" component={Learn} />
+          <Route path="/instructor-registration" component={Instructor} />
+          <Route path="/upload-video" component={VideoUpload} />
+          <Route path="/new-courses" component={Classroom} />
         </Switch>
       </Router>
     </div>

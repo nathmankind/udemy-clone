@@ -121,6 +121,15 @@
       "profileImg": "",
       "favouriteVideo": [],
       "id": 15
+    },
+    {
+      "name": "Olufunke Adigun",
+      "email": "olufadigun@gmail.com",
+      "profession": "data engineer",
+      "userType": "Instructor",
+      "profileImg": "",
+      "favouriteVideo": [],
+      "id": 16
     }
   ],
   "companies": [
@@ -141,22 +150,13 @@
       "name": "Google"
     }
   ],
-  "videoLink": [
+  "videoUploads": [
     {
-      "category": "web development",
-      "videoId": []
-    },
-    {
-      "category": "mobile development",
-      "videoId": []
-    },
-    {
-      "category": "design",
-      "videoId": []
-    },
-    {
-      "category": "Data Science",
-      "videoId": []
+      "title": "",
+      "description": "",
+      "instructor": "",
+      "videoUrl": "",
+      "posterImage": ""
     }
   ]
 }

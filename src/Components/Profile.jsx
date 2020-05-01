@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TopNavbar from "./TopNavbar";
 // import db from "../";
-// import Axios from "axios";
+import axios from "axios";
 
 class Profile extends Component {
   constructor(props) {
@@ -11,14 +11,25 @@ class Profile extends Component {
       name: "",
       email: "",
       image: "",
-      selectedFile: null
+      userType: "",
+      userId: null,
+      selectedFile: null,
+      uploadedImg: ""
     };
   }
 
   componentDidMount() {
     let data = JSON.parse(sessionStorage.getItem("userData"));
     if (data) {
-      this.setState({ isUserLoggedIn: true, name: data.name });
+      this.setState({
+        isUserLoggedIn: true,
+        name: data.name,
+        email: data.email,
+        userType: data.userType,
+        userId: data.id,
+        image: data.profileImg,
+        uploadProgress: ""
+      });
     } else {
       this.setState({ isUserLoggedIn: false, name: "" });
     }
@@ -26,31 +37,68 @@ class Profile extends Component {
 
   fileSelectedHandler = e => {
     this.setState({ selectedFile: e.target.files[0] });
+    console.log(e.target.files[0]);
   };
 
-  fileUploadHandler = async () => {
+  fileUploadHandler = async e => {
+    e.preventDefault();
     const fileData = new FormData();
-    fileData.append("image", this.state.selectedFile);
-    fileData.append("upload_preset", "");
-    const res = await fetch("API_URL", {
-      //INSERT IMAGE URL
-      method: "POST",
-      body: fileData
+    fileData.append(
+      "file",
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    );
+    fileData.append("upload_preset", "j6ph0b2u");
+    console.log(fileData);
+    console.log(this.state.selectedFile);
+    const APIURL = "https://api.cloudinary.com/v1_1/nath/image/upload";
+    // const res = await fetch(APIURL, {
+    //   method: "POST",
+    //   body: fileData
+    // });
+    axios
+      .post(APIURL, fileData, {
+        onUploadProgress: ProgressEvent => {
+          console.log(
+            "Upload progress: " +
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%"
+          );
+          this.setState({
+            uploadProgress:
+              "Upload progress: " +
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%"
+          });
+        }
+      })
+      .then(result => {
+        this.setState({
+          image: result.data.secure_url,
+          uploadedImg: result.data.secure_url
+        });
+      });
+    console.log(this.state.uploadedImg);
+    let profileImage = this.state.uploadedImg;
+    // const file = await res.json();
+    // this.setState({ image: file.secure_url });
+    // let profileImage = file.secure_url;
+    // console.log(profileImage);
+    fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        profileImg: profileImage
+      })
     });
-    const file = await res.json();
-    this.setState({ image: file.secure_url });
-    // fetch("http://localhost:3200/signup_users")
-    // .then(res => res.json())
-    // .then(result => result.filter(
-    //   user => user.email=="anikep@gmail.com"
-    //   )).then(res => res.map(user => console.log(user.email)))
+    console.log(sessionStorage);
   };
 
-  handleSubmit = () => {};
   render() {
     return (
       <div>
-        {/* <TopNavbar /> */}
         <div className="container">
           <div className="row">
             <div className="header">
@@ -60,22 +108,26 @@ class Profile extends Component {
           <div className="row">
             <div className="col-md-5">
               <div className="user-image">
-                <img
-                  src={this.state.image}
-                  alt="profile image"
-                  style={{
-                    width: "500px",
-                    height: "500px",
-                    borderRadius: "20%",
-                    backgroundColor: "grey"
-                  }}
-                />
-                <input
-                  type="file"
-                  name="file"
-                  onChange={this.fileSelectedHandler}
-                />
-                <button onClick={this.fileUploadHandler}>Upload Image</button>
+                <form>
+                  <img
+                    src={this.state.image}
+                    alt="profile image"
+                    // style={{
+                    //   width: "500px",
+                    //   height: "500px",
+                    //   backgroundColor: "grey"
+                    // }}
+                  />
+                  <input
+                    type="file"
+                    name="file"
+                    accept="image/png, image/jpeg"
+                    onChange={this.fileSelectedHandler}
+                  />
+                  <button onClick={this.fileUploadHandler}>Upload Image</button>
+
+                  <p>{this.state.uploadProgress}</p>
+                </form>
               </div>
             </div>
             <div className="col-md-7">
@@ -89,6 +141,8 @@ class Profile extends Component {
                       name=""
                       id=""
                       placeholder=""
+                      value={this.state.name}
+                      readOnly
                     />
                   </div>
                   <div class="form-group">
@@ -97,10 +151,12 @@ class Profile extends Component {
                       type="email"
                       className="form-control"
                       placeholder=""
+                      value={this.state.email}
+                      readOnly
                     />
                   </div>
                   <div class="form-group">
-                    <label>Profession</label>
+                    <label>User Type</label>
                     <input
                       type="text"
                       className="form-control"
@@ -108,9 +164,11 @@ class Profile extends Component {
                       id=""
                       aria-describedby="helpId"
                       placeholder=""
+                      value={this.state.userType}
+                      readOnly
                     />
+                    <p>User id: {this.state.userId}</p>
                   </div>
-                  <button>Update Profile</button>
                 </form>
               </div>
             </div>

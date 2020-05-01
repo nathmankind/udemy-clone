@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
 import GoogleLogout from "react-google-login";
-import TopNavbar from "./TopNavbar";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -12,33 +12,42 @@ class Login extends Component {
     };
   }
 
-  signUp = res => {
+  login = res => {
     console.log(res);
 
     const JsonApiURL = "http://localhost:3200/signup_users";
     const user_email = res.profileObj.email;
     console.log(user_email);
+    let user_details;
     fetch(JsonApiURL)
       .then(res => res.json())
       .then(result => {
-        result.filter(user => user.email == user_email);
-        let responseJson = result;
+        user_details = result.filter(user => user.email === user_email);
+        let responseJson = user_details;
         console.log(responseJson);
         if (responseJson) {
-          sessionStorage.setItem("userData", JSON.stringify(responseJson));
+          sessionStorage.setItem("userData", JSON.stringify(responseJson[4])); // remove the [0]
           this.setState({ isUserLoggedIn: true });
         }
       });
+    this.pageRefresh();
+  };
+  refreshPage = () => {
+    window.location.reload();
+  };
+  pageRefresh = () => {
+    setTimeout(this.refreshPage, 1000);
+  };
+  renderRedirect = () => {
+    if (this.state.isUserLoggedIn) {
+      return <Redirect to="/" />;
+    }
   };
 
   render() {
     return (
       <div>
-        <TopNavbar
-          userLoggedIn={this.state.isUserLoggedIn}
-          logout={this.logout}
-        />
-
+        {this.renderRedirect()}
         <div className="container">
           <div className="center-form">
             {!this.state.userLoggedIn && (
@@ -47,7 +56,7 @@ class Login extends Component {
                 <GoogleLogin
                   clientId="897853591099-07vsq27mk00uqb4utejt5ki04kgg49ne.apps.googleusercontent.com"
                   buttonText="Continue with Google"
-                  onSuccess={this.signUp}
+                  onSuccess={this.login}
                   // onFailure={responseGoogle}
                   cookiePolicy={"single_host_origin"}
                 />

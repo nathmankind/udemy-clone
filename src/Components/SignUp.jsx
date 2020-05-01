@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
 import GoogleLogout from "react-google-login";
+import { Redirect } from "react-router-dom";
 import TopNavbar from "./TopNavbar";
 import { PostData } from "./../service/service";
 
@@ -42,6 +43,8 @@ class SignUp extends Component {
           this.setState({ isUserLoggedIn: true });
         }
       });
+
+    this.pageRefresh();
     // PostData(postData).then(result => {
     //   let responseJson = result;
     //   console.log(responseJson);
@@ -52,6 +55,18 @@ class SignUp extends Component {
     // });
   };
 
+  refreshPage = () => {
+    window.location.reload();
+  };
+  pageRefresh = () => {
+    setTimeout(this.refreshPage, 1000);
+  };
+  renderRedirect = () => {
+    if (this.state.isUserLoggedIn) {
+      return <Redirect to="/" />;
+    }
+  };
+
   render() {
     return (
       <div>
@@ -60,6 +75,7 @@ class SignUp extends Component {
             {!this.state.userLoggedIn && (
               <div className="sign-up">
                 <h2>Sign Up </h2>
+                {this.renderRedirect()}
                 <GoogleLogin
                   clientId="897853591099-07vsq27mk00uqb4utejt5ki04kgg49ne.apps.googleusercontent.com"
                   buttonText="Sign Up with Google"

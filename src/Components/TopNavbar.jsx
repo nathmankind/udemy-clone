@@ -81,18 +81,25 @@ class TopNavbar extends Component {
                 />
                 <Button variant="outline-success">Search</Button>
               </Form>
+
+              {this.state.isUserLoggedIn && (
+                <div>
+                  {this.state.userType == "Instructor" ? (
+                    <div>
+                      <Button variant="outline-success">
+                        <Link to="/upload-video">Upload video</Link>
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button variant="outline-success">
+                      <Link to="/instructor-registration">
+                        Become an Instructor
+                      </Link>
+                    </Button>
+                  )}
+                </div>
+              )}
             </Nav>
-            {/* {this.state.userType == "Instructor" ? (
-              <div>
-                <Button variant="outline-success">
-                  <Link to="/upload-video">Upload video</Link>
-                </Button>
-              </div>
-            ) : (
-              <Button variant="outline-success">
-                <Link to="/instructor-registration">Become an Instructor</Link>
-              </Button>
-            )} */}
             {!this.state.isUserLoggedIn && (
               <div>
                 <Button variant="outline-success">
@@ -105,19 +112,6 @@ class TopNavbar extends Component {
             )}
             {this.state.isUserLoggedIn && (
               <div>
-                {this.state.userType == "Instructor" ? (
-                  <div>
-                    <Button variant="outline-success">
-                      <Link to="/upload-video">Upload video</Link>
-                    </Button>
-                  </div>
-                ) : (
-                  <Button variant="outline-success">
-                    <Link to="/instructor-registration">
-                      Become an Instructor
-                    </Link>
-                  </Button>
-                )}
                 <NavDropdown title={this.state.name} id="basic-nav-dropdown">
                   <NavDropdown.Item>
                     <Link to="/profile">Profile</Link>

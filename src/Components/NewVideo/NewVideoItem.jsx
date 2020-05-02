@@ -11,7 +11,7 @@ const NewVideoItem = ({ video, onVideoSelect }) => {
     >
       <div className="video-list">
         <div className="video-image">
-          <img className="image" src={imgUrl} />
+          <img className="image" src={imgUrl} style={{ width: "100%" }} />
         </div>
         <div className="video-detail">
           <div className="media-heading">Title: {video.title}</div>

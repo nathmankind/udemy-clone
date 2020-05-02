@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class VideoUpload extends Component {
   constructor(props) {
@@ -12,7 +13,9 @@ class VideoUpload extends Component {
       videoUrl: "",
       videoPosterImage: "",
       title: "",
-      description: ""
+      description: "",
+      videoUploadProgress: "0%",
+      imageUploadProgress: "0%"
     };
     this.handleTitle = this.handleTitle.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
@@ -43,7 +46,7 @@ class VideoUpload extends Component {
   };
 
   //Method for video image upload to cloudinary
-  posterImageUploadHandler = async e => {
+  posterImageUploadHandler = e => {
     e.preventDefault();
     const fileData = new FormData();
     fileData.append(
@@ -53,13 +56,25 @@ class VideoUpload extends Component {
     );
     fileData.append("upload_preset", "j6ph0b2u");
     const APIURL = "https://api.cloudinary.com/v1_1/nath/image/upload";
-    const res = await fetch(APIURL, {
-      method: "POST",
-      body: fileData
-    });
-    const file = await res.json();
-    this.setState({ videoPosterImage: file.secure_url });
-    let profileImage = file.secure_url;
+    axios
+      .post(APIURL, fileData, {
+        onUploadProgress: ProgressEvent => {
+          console.log(
+            "Upload progress: " +
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%"
+          );
+          this.setState({
+            imageUploadProgress:
+              "Upload progress: " +
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%"
+          });
+        }
+      })
+      .then(result => {
+        this.setState({ videoPosterImage: result.data.secure_url });
+      });
   };
 
   //Video Upload
@@ -77,15 +92,26 @@ class VideoUpload extends Component {
       this.state.selectedVideo.name
     );
     fileData.append("upload_preset", "j6ph0b2u");
-    const APIURL = "https://api.cloudinary.com/v1_1/nath/video/upload";
-    const res = await fetch(APIURL, {
-      method: "POST",
-      body: fileData
-    });
-    const file = await res.json();
-    this.setState({ videoUrl: file.secure_url });
-    let videoUrl = file.secure_url;
-    console.log(videoUrl);
+    const videoAPIURL = "https://api.cloudinary.com/v1_1/nath/video/upload";
+    axios
+      .post(videoAPIURL, fileData, {
+        onUploadProgress: ProgressEvent => {
+          console.log(
+            "Upload progress: " +
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%"
+          );
+          this.setState({
+            videoUploadProgress:
+              "Upload progress: " +
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%"
+          });
+        }
+      })
+      .then(result => {
+        this.setState({ videoUrl: result.data.secure_url });
+      });
   };
 
   handleSubmit = e => {
@@ -120,7 +146,6 @@ class VideoUpload extends Component {
           <div className="row">
             <div className="col-md-5">
               <div className="user-image">
-                <iframe src="" frameborder="0"></iframe>
                 {/* Upload Image form */}
                 <input
                   type="file"
@@ -131,7 +156,15 @@ class VideoUpload extends Component {
                 <button onClick={this.posterImageUploadHandler}>
                   Upload Image
                 </button>
-                <img src={this.state.videoPosterImage} alt="poster image" />
+                <img
+                  src={this.state.videoPosterImage}
+                  alt="poster image"
+                  style={{
+                    width: "100%",
+                    height: "100%"
+                  }}
+                />
+                <p>Upload Progress: {this.state.imageUploadProgress}</p>
                 <form>
                   {/* Upload video form */}
                   <input
@@ -143,6 +176,7 @@ class VideoUpload extends Component {
                   <button onClick={this.videoUploadHandler}>
                     Upload Video
                   </button>
+                  <p>Upload Progress: {this.state.videoUploadProgress}</p>
                 </form>
               </div>
             </div>

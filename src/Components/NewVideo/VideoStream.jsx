@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Player, BigPlayButton } from "video-react";
+import { Player, BigPlayButton, PosterImage } from "video-react";
 
 const VideoStream = ({ video }) => {
   if (!video) {

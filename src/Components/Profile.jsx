@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import TopNavbar from "./TopNavbar";
-// import db from "../";
 import axios from "axios";
 
 class Profile extends Component {
@@ -14,7 +12,8 @@ class Profile extends Component {
       userType: "",
       userId: null,
       selectedFile: null,
-      uploadedImg: ""
+      uploadedImg: "",
+      uploadProgress: ""
     };
   }
 
@@ -27,8 +26,7 @@ class Profile extends Component {
         email: data.email,
         userType: data.userType,
         userId: data.id,
-        image: data.profileImg,
-        uploadProgress: ""
+        image: data.profileImg
       });
     } else {
       this.setState({ isUserLoggedIn: false, name: "" });
@@ -40,7 +38,7 @@ class Profile extends Component {
     console.log(e.target.files[0]);
   };
 
-  fileUploadHandler = async e => {
+  fileUploadHandler = e => {
     e.preventDefault();
     const fileData = new FormData();
     fileData.append(
@@ -52,10 +50,6 @@ class Profile extends Component {
     console.log(fileData);
     console.log(this.state.selectedFile);
     const APIURL = "https://api.cloudinary.com/v1_1/nath/image/upload";
-    // const res = await fetch(APIURL, {
-    //   method: "POST",
-    //   body: fileData
-    // });
     axios
       .post(APIURL, fileData, {
         onUploadProgress: ProgressEvent => {
@@ -73,26 +67,37 @@ class Profile extends Component {
         }
       })
       .then(result => {
+        const img_url = result.data.secure_url;
+
         this.setState({
           image: result.data.secure_url,
           uploadedImg: result.data.secure_url
         });
+        fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            profileImg: img_url
+          })
+        });
+        console.log(img_url);
       });
-    console.log(this.state.uploadedImg);
     let profileImage = this.state.uploadedImg;
     // const file = await res.json();
     // this.setState({ image: file.secure_url });
     // let profileImage = file.secure_url;
     // console.log(profileImage);
-    fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        profileImg: profileImage
-      })
-    });
+    // fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     profileImg: `${this.state.uploadedImg}`
+    //   })
+    // });
     console.log(sessionStorage);
   };
 

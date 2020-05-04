@@ -8,30 +8,30 @@ import VideoList from "./VideoList";
 class Learn extends Component {
   state = {
     videos: [],
-    selectedVideo: null
+    selectedVideo: null,
   };
 
   componentDidMount() {
     this.handleSubmit("react course");
   }
 
-  onVideoSelect = video => {
+  onVideoSelect = (video) => {
     this.setState({ selectedVideo: video });
   };
 
-  handleSubmit = async searchterm => {
+  handleSubmit = async (searchterm) => {
     const response = await service.get("search", {
       params: {
         part: "snippet",
         maxResult: 5,
         key: "AIzaSyA_vDnztUrLZD2dVvEfIilq5JdIwqXkQsM",
-        q: searchterm
-      }
+        q: searchterm,
+      },
     });
     // console.log(response.data.items);
     this.setState({
       videos: response.data.items,
-      selectedVideo: response.data.items[0]
+      selectedVideo: response.data.items[0],
     });
   };
   render() {
@@ -44,9 +44,8 @@ class Learn extends Component {
               <SearchBar onFormSubmit={this.handleSubmit} />
             </div>
             <div className="row">
-              <div className="col-md-8">
-                <VideoDetail video={this.state.selectedVideo} />
-              </div>
+              <VideoDetail video={this.state.selectedVideo} />
+
               <div className="col-md-4">
                 <VideoList
                   videos={this.state.videos}

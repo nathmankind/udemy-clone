@@ -4,7 +4,7 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchterm: ""
+      searchterm: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handlesubmit = this.handlesubmit.bind(this);
@@ -21,15 +21,16 @@ class SearchBar extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="search-section">
         <form onSubmit={this.handlesubmit}>
+          <label className="search-label"></label>
           <div className="form-group">
             <input
               type="text"
               className="form-control"
               name=""
               id=""
-              placeholder=""
+              placeholder="Search for videos"
               onChange={this.handleChange}
             />
           </div>

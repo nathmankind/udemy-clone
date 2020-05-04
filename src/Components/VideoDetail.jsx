@@ -7,20 +7,23 @@ const VideoDetail = ({ video }) => {
   const videoId = video.id.videoId;
   const url = `https://youtube.com/embed/${videoId}`;
   return (
-    <div>
+    <div className="col-md-8">
       <div className="video-embed-section">
         <iframe
-          width="80%"
-          height="330"
+          width="90%"
+          height="370"
+          marginWidth="auto"
           src={url}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
       </div>
-      <div className="details">
-        <div>{video.snippet.title}</div>
-        <div>{video.snippet.description}</div>
+      <div className="ytvid-details">
+        <div className="ytvid-title">{video.snippet.title}</div>
+        <div className="ytvid-description py-3">
+          {video.snippet.description}
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
 import GoogleLogout from "react-google-login";
-import { Redirect } from "react-router-dom";
-import TopNavbar from "./TopNavbar";
+import { Link, Redirect } from "react-router-dom";
 import { PostData } from "./../service/service";
 
 class SignUp extends Component {
@@ -10,11 +9,11 @@ class SignUp extends Component {
     super(props);
     this.state = {
       userDetails: {},
-      isUserLoggedIn: false
+      isUserLoggedIn: false,
     };
   }
 
-  signUp = res => {
+  signUp = (res) => {
     console.log(res);
     let postData;
     if (res.profileObj.email) {
@@ -24,7 +23,7 @@ class SignUp extends Component {
         profession: "data engineer",
         userType: "student",
         profileImg: "",
-        favouriteVideo: []
+        favouriteVideo: [],
       };
     }
     console.log(postData);
@@ -32,10 +31,10 @@ class SignUp extends Component {
     fetch(JsonApiURL, {
       method: "POST",
       body: JSON.stringify(postData),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     })
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         console.log(result);
         let responseJson = result;
         if (responseJson) {
@@ -71,29 +70,42 @@ class SignUp extends Component {
     return (
       <div>
         <div className="container">
-          <div className="center-form">
-            {!this.state.userLoggedIn && (
-              <div className="sign-up">
-                <h2>Sign Up </h2>
-                {this.renderRedirect()}
-                <GoogleLogin
-                  clientId="897853591099-07vsq27mk00uqb4utejt5ki04kgg49ne.apps.googleusercontent.com"
-                  buttonText="Sign Up with Google"
-                  onSuccess={this.signUp}
-                  // onFailure={responseGoogle}
-                  cookiePolicy={"single_host_origin"}
-                />
+          <div className="row">
+            <div className="col-md-4"></div>
+            <div className="col-md-4">
+              <div className="login-form">
+                {!this.state.userLoggedIn && (
+                  <div className="sign-up">
+                    <h2 className="pt-2">Sign Up </h2>
+                    <hr className="pb-4" />
+                    {this.renderRedirect()}
+                    <GoogleLogin
+                      clientId="897853591099-07vsq27mk00uqb4utejt5ki04kgg49ne.apps.googleusercontent.com"
+                      buttonText="Sign Up with Google"
+                      onSuccess={this.signUp}
+                      // onFailure={responseGoogle}
+                      cookiePolicy={"single_host_origin"}
+                    />
+                  </div>
+                )}
+                {this.state.userLoggedIn && (
+                  <div className="sign-out">
+                    <p>
+                      You are currently signed in, click the button to sign out
+                    </p>
+                    <GoogleLogout
+                      buttonText="Log Out"
+                      onLogoutSuccess={this.logout}
+                    ></GoogleLogout>
+                  </div>
+                )}
+                <p className="pt-4 ">
+                  Already have an account?
+                  <Link to="/login"> Login</Link>
+                </p>
               </div>
-            )}
-            {this.state.userLoggedIn && (
-              <div className="sign-out">
-                <p>You are currently signed in, click the button to sign out</p>
-                <GoogleLogout
-                  buttonText="Log Out"
-                  onLogoutSuccess={this.logout}
-                ></GoogleLogout>
-              </div>
-            )}
+            </div>
+            <div className="col-md-4"></div>
           </div>
         </div>
       </div>

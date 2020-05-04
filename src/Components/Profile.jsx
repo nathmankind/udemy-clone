@@ -19,7 +19,7 @@ class Profile extends Component {
 
   componentDidMount() {
     let data = JSON.parse(sessionStorage.getItem("userData"));
-    if (data) {
+    data?
       this.setState({
         isUserLoggedIn: true,
         name: data.name,
@@ -27,10 +27,10 @@ class Profile extends Component {
         userType: data.userType,
         userId: data.id,
         image: data.profileImg
-      });
-    } else {
+      })
+    :
       this.setState({ isUserLoggedIn: false, name: "" });
-    }
+    
   }
 
   fileSelectedHandler = e => {
@@ -84,21 +84,6 @@ class Profile extends Component {
         });
         console.log(img_url);
       });
-    let profileImage = this.state.uploadedImg;
-    // const file = await res.json();
-    // this.setState({ image: file.secure_url });
-    // let profileImage = file.secure_url;
-    // console.log(profileImage);
-    // fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     profileImg: `${this.state.uploadedImg}`
-    //   })
-    // });
-    console.log(sessionStorage);
   };
 
   render() {
@@ -110,71 +95,74 @@ class Profile extends Component {
               <h3>User Profile</h3>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-5">
-              <div className="user-image">
-                <form>
-                  <img
-                    src={this.state.image}
-                    alt="profile image"
-                    // style={{
-                    //   width: "500px",
-                    //   height: "500px",
-                    //   backgroundColor: "grey"
-                    // }}
-                  />
-                  <input
-                    type="file"
-                    name="file"
-                    accept="image/png, image/jpeg"
-                    onChange={this.fileSelectedHandler}
-                  />
-                  <button onClick={this.fileUploadHandler}>Upload Image</button>
+          <div className="row ">
+            <div className="profile-box">
+              <div className="col-md-5">
+                <div className="user-image">
+                  <form>
+                    <img
+                      src={this.state.image}
+                      alt="profile image"
+                      style={{
+                        width: "65%",
+                        height: "auto",
+                        padding: "10px"
+                      }}
+                    />
+                    <input
+                      type="file"
+                      name="file"
+                      accept="image/png, image/jpeg"
+                      onChange={this.fileSelectedHandler}
+                    />
+                    <button onClick={this.fileUploadHandler}>
+                      Upload Image
+                    </button>
 
-                  <p>{this.state.uploadProgress}</p>
-                </form>
+                    <p>{this.state.uploadProgress}</p>
+                  </form>
+                </div>
               </div>
-            </div>
-            <div className="col-md-7">
-              <div className="user-detail">
-                <form>
-                  <div class="form-group">
-                    <label>Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name=""
-                      id=""
-                      placeholder=""
-                      value={this.state.name}
-                      readOnly
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      placeholder=""
-                      value={this.state.email}
-                      readOnly
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label>User Type</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name=""
-                      id=""
-                      aria-describedby="helpId"
-                      placeholder=""
-                      value={this.state.userType}
-                      readOnly
-                    />
-                    <p>User id: {this.state.userId}</p>
-                  </div>
-                </form>
+              <div className="col-md-7 my-3 px-3 py-3">
+                <div className="user-detail">
+                  <form>
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name=""
+                        id=""
+                        placeholder=""
+                        value={this.state.name}
+                        readOnly
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        placeholder=""
+                        value={this.state.email}
+                        readOnly
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>User Type</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name=""
+                        id=""
+                        aria-describedby="helpId"
+                        placeholder=""
+                        value={this.state.userType}
+                        readOnly
+                      />
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

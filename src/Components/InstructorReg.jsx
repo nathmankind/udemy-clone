@@ -13,7 +13,7 @@ class Instructor extends Component {
       image: "",
       userType: "",
       userId: null,
-      selectedFile: null
+      selectedFile: null,
     };
   }
 
@@ -25,27 +25,27 @@ class Instructor extends Component {
         name: data.name,
         email: data.email,
         userType: data.userType,
-        userId: data.id
+        userId: data.id,
       });
     } else {
       this.setState({ isUserLoggedIn: false, name: "" });
     }
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     e.target.value == "Yes"
       ? this.setState({ userType: "Instructor" })
       : this.setState({ userType: "Student" });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        userType: this.state.userType
-      })
+        userType: this.state.userType,
+      }),
     });
     console.log(sessionStorage);
   };
@@ -54,7 +54,7 @@ class Instructor extends Component {
       <div>
         <div className="container">
           <div className="row">
-            <div className="header">
+            <div className=" header instructor-header">
               <h1>Become an instructor</h1>
               <p>
                 Being an instructor means you will be able to upload course
@@ -62,7 +62,7 @@ class Instructor extends Component {
               </p>
             </div>
           </div>
-          <div className="">
+          <div className="instructor-box">
             <div class="form-group">
               <label>Name</label>
               <input
@@ -99,13 +99,21 @@ class Instructor extends Component {
               />
             </div>
             <form>
-              <div className="form" onChange={this.handleChange}>
-                <input type="radio" name="instructor" value="Yes" />
-                Yes
-                <input type="radio" name="instructor" value="No" />
-                No
+              <p>Do you want to be an instructor?</p>
+              <div className="instructor-choice" onChange={this.handleChange}>
+                <div className="option pb-3">
+                  <input type="radio" name="instructor" value="Yes" />
+                  Yes
+                </div>
+
+                <div className="option pb-3">
+                  <input type="radio" name="instructor" value="No" />
+                  No
+                </div>
               </div>
-              <button onClick={this.handleSubmit}>Submit</button>
+              <button className="submit-button" onClick={this.handleSubmit}>
+                Submit
+              </button>
             </form>
           </div>
         </div>

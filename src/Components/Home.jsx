@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import TopNavbar from "./TopNavbar";
 import YtWebSection from "./YtWebSection";
-import MobileSection from "./MobileSection";
 
 class Home extends Component {
   render() {
@@ -21,11 +18,6 @@ class Home extends Component {
                   <br></br>
                   clock is ticking.
                 </p>
-                <input
-                  type="text"
-                  className="search form-control"
-                  placeholder="What do you want to learn?"
-                />
               </div>
             </div>
           </div>
@@ -49,7 +41,6 @@ class Home extends Component {
           </div>
         </div>
         <YtWebSection />
-        <MobileSection />
       </div>
     );
   }

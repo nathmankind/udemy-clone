@@ -152,20 +152,13 @@
   ],
   "videoUploads": [
     {
-      "id": 1,
-      "title": "",
-      "description": "",
-      "instructor": "",
-      "videoUrl": "",
-      "posterImage": ""
-    },
-    {
       "title": "Sintel Trailer",
       "description": "The sintel trailer is an excerpt of learning hunting, a story of the quest for an unknown hunter.",
       "instructor": "Olufunke Adigun",
       "videoUrl": "https://res.cloudinary.com/nath/video/upload/v1588380102/react/qqszdiyk3hxwrlpyjcyx.mp4",
       "posterImage": "https://res.cloudinary.com/nath/image/upload/v1588379896/react/oyyd8iuxtdoycgswdrwu.png",
-      "id": 2
+      "id": 2,
+      "rating": 0
     },
     {
       "title": "Dog Demo Image",
@@ -173,7 +166,8 @@
       "instructor": "Olufunke Adigun",
       "videoUrl": "https://res.cloudinary.com/nath/video/upload/v1588383219/react/idgn4t8gaikdrnkqrb2l.mp4",
       "posterImage": "https://res.cloudinary.com/nath/image/upload/v1588383108/react/j98ya58msutqfjwidwuo.jpg",
-      "id": 3
+      "id": 3,
+      "rating": 3
     }
   ]
 }

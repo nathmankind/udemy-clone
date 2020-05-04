@@ -9,13 +9,13 @@ const NewVideoItem = ({ video, onVideoSelect }) => {
         onVideoSelect(video);
       }}
     >
-      <div className="video-list">
-        <div className="video-image">
+      <div className="video-list py-3 py-1">
+        <div className="video-image px-2">
           <img className="image" src={imgUrl} style={{ width: "100%" }} />
         </div>
-        <div className="video-detail">
-          <div className="media-heading">Title: {video.title}</div>
-          <div className="media-heading">Author: {video.instructor}</div>
+        <div className="video-detail px-3 py-3">
+          <div className="media-heading title">Title: {video.title}</div>
+          <div className="media-heading author">Author: {video.instructor}</div>
         </div>
       </div>
     </li>

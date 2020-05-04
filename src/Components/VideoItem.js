@@ -4,16 +4,16 @@ const VideoItem = ({ video, onVideoSelect }) => {
   const imgUrl = video.snippet.thumbnails.medium.url;
   return (
     <li
-      className="video-list-item"
+      className="ytvideo-list-item"
       onClick={() => {
         onVideoSelect(video);
       }}
     >
-      <div className="video-list">
-        <div className="video-image">
+      <div className="ytvideo-list">
+        <div className="video-image ytvid-img">
           <img className="image" src={imgUrl} />
         </div>
-        <div className="video-detail">
+        <div className="video-detail px-1">
           <div className="media-heading">{video.snippet.title}</div>
         </div>
       </div>

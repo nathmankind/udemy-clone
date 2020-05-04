@@ -9,7 +9,7 @@ export default class YtWebSection extends Component {
         {
           image: "https://i.ytimg.com/vi/zojEMeQGGHs/mqdefault.jpg",
           title: "Svelte For Beginners",
-          description: "Svelte is a javascript framework for SPA",
+          description: "Svelte is a javascript framework for building SPA",
         },
         {
           image: "https://i.ytimg.com/vi/udHm7I_OvJs/mqdefault.jpg",
@@ -49,7 +49,9 @@ export default class YtWebSection extends Component {
         <div className="web-section py-4">
           <div className="container">
             <div className="section-top">
-              <h3 className="section-name">Web Development</h3>
+              <h3 style={{ fontWeight: "100" }} className="section-name py-4">
+                Check our learning contents
+              </h3>
               <div className="row">
                 {this.state.imageUrl.map((courseImage) => (
                   <div className="col-md-3">

@@ -58,7 +58,7 @@ class TopNavbar extends Component {
                 )}
                 {this.state.isUserLoggedIn && (
                   <div>
-                    {this.state.userType == "Instructor" ? (
+                    {this.state.userType === "Instructor" ? (
                       <div>
                         <Button variant="outline-success">
                           <Link to="/upload-video">Upload video</Link>

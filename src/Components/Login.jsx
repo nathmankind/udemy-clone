@@ -27,7 +27,7 @@ class Login extends Component {
         let responseJson = user_details;
         console.log(responseJson);
         if (responseJson) {
-          sessionStorage.setItem("userData", JSON.stringify(responseJson[4])); // remove the [0]
+          sessionStorage.setItem("userData", JSON.stringify(responseJson)); // remove the [0]
           this.setState({ isUserLoggedIn: true });
         }
       });

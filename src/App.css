@@ -224,7 +224,8 @@ body li {
   font-size: 24px;
 }
 nav button {
-  border: none !important;
+  border: 1px solid black !important;
+  margin: 0 4px;
 }
 nav button:hover {
   background: #8a8a8a40 !important;

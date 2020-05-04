@@ -12,11 +12,11 @@ class Home extends Component {
           <div className="container">
             <div className="row">
               <div className="text text-left">
-                <h2>24-Hour Flash Sale</h2>
-                <p>
-                  Great timing! Courses from $11.99. Better hurry - the{" "}
+                <h2>Learn on your schedule</h2>
+                <p style={{fontWeight:"100"}}>
+                Study any topic, anytime. Choose from thousands of 
                   <br></br>
-                  clock is ticking.
+                  expert-led courses now.
                 </p>
               </div>
             </div>

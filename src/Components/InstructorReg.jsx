@@ -114,6 +114,10 @@ class Instructor extends Component {
                   No
                 </div>
               </div>
+              <p>
+                Logout after clicking the submit button and login to see change
+                effected
+              </p>
               <button className="submit-button" onClick={this.handleSubmit}>
                 Submit
               </button>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import udemyLogo from "../logo-coral.svg";
-import { Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 
 class TopNavbar extends Component {
@@ -27,13 +27,20 @@ class TopNavbar extends Component {
   logout = () => {
     sessionStorage.clear();
     this.setState({ isUserLoggedIn: false, name: "" });
+    // this.renderRedirect()
+  };
+  renderRedirect = () => {
+    if (!this.state.isUserLoggedIn) {
+      return <Redirect to="/" />;
+    }
   };
 
   render() {
     return (
       <div>
+        {this.renderRedirect()}
         <Navbar bg="light" expand="lg">
-          <div className="container">
+          <div className="container-fluid">
             <Navbar.Brand>
               <Link to="/">
                 <img src={udemyLogo} alt="logo" />

@@ -40,13 +40,16 @@ class Instructor extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userType: this.state.userType,
-      }),
-    });
+    fetch(
+      `http://udemy-clone-json-server.herokuapp.com/signup_users/${this.state.userId}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userType: this.state.userType,
+        }),
+      }
+    );
     console.log(sessionStorage);
   };
   render() {

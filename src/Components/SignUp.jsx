@@ -27,7 +27,8 @@ class SignUp extends Component {
       };
     }
     console.log(postData);
-    const JsonApiURL = "http://localhost:3200/signup_users";
+    const JsonApiURL =
+      "http://udemy-clone-json-server.herokuapp.com/signup_users";
     fetch(JsonApiURL, {
       method: "POST",
       body: JSON.stringify(postData),

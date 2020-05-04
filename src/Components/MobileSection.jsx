@@ -8,36 +8,35 @@ class MobileSection extends Component {
         {
           image: "https://i.ytimg.com/vi/dfYCp9NBogg/mqdefault.jpg",
           title: "Flutter Tutorials",
-          description: "Svelte is a javascript framework for SPA"
+          description: "Svelte is a javascript framework for SPA",
         },
         {
           image: "https://i.ytimg.com/vi/H8HGTHbrPeE/mqdefault.jpg",
           title: "Kotlin Google API",
-          description: "Firebase is a great cloud technology to use"
+          description: "Firebase is a great cloud technology to use",
         },
         {
           image: "https://i.ytimg.com/vi/LCoSXirkV_A/mqdefault.jpg",
           title: "App Store Optimizaton Basics",
-          description: "A PHP framework for building awesome websites"
+          description: "A PHP framework for building awesome websites",
         },
         {
           image: "https://i.ytimg.com/vi/-1wf2fxfooE/mqdefault.jpg",
           title: "ASO Best Practices",
-          description: "Learn Object oriented PHP, and build powerful websites"
-        }
-      ]
+          description: "Learn Object oriented PHP, and build powerful websites",
+        },
+      ],
     };
   }
 
   render() {
     return (
       <div>
-        <div className="web-section py-4">
+        <div className="web-section my-4 py-4">
           <div className="container">
             <div className="section-top">
-              <h3 className="section-name">Mobile Development</h3>
               <div className="row">
-                {this.state.imageUrl.map(courseImage => (
+                {this.state.imageUrl.map((courseImage) => (
                   <div className="col-md-3">
                     <div className="course-card">
                       <img
@@ -54,11 +53,6 @@ class MobileSection extends Component {
                     </div>
                   </div>
                 ))}
-              </div>
-              <div className="web-button py-5">
-                <button type="button" class="btn btn-primary">
-                  Go to Mobile Development Class
-                </button>
               </div>
             </div>
           </div>

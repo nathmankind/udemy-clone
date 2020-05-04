@@ -13,32 +13,30 @@ class Profile extends Component {
       userId: null,
       selectedFile: null,
       uploadedImg: "",
-      uploadProgress: ""
+      uploadProgress: "",
     };
   }
 
   componentDidMount() {
     let data = JSON.parse(sessionStorage.getItem("userData"));
-    data?
-      this.setState({
-        isUserLoggedIn: true,
-        name: data.name,
-        email: data.email,
-        userType: data.userType,
-        userId: data.id,
-        image: data.profileImg
-      })
-    :
-      this.setState({ isUserLoggedIn: false, name: "" });
-    
+    data
+      ? this.setState({
+          isUserLoggedIn: true,
+          name: data.name,
+          email: data.email,
+          userType: data.userType,
+          userId: data.id,
+          image: data.profileImg,
+        })
+      : this.setState({ isUserLoggedIn: false, name: "" });
   }
 
-  fileSelectedHandler = e => {
+  fileSelectedHandler = (e) => {
     this.setState({ selectedFile: e.target.files[0] });
     console.log(e.target.files[0]);
   };
 
-  fileUploadHandler = e => {
+  fileUploadHandler = (e) => {
     e.preventDefault();
     const fileData = new FormData();
     fileData.append(
@@ -52,7 +50,7 @@ class Profile extends Component {
     const APIURL = "https://api.cloudinary.com/v1_1/nath/image/upload";
     axios
       .post(APIURL, fileData, {
-        onUploadProgress: ProgressEvent => {
+        onUploadProgress: (ProgressEvent) => {
           console.log(
             "Upload progress: " +
               Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
@@ -62,26 +60,29 @@ class Profile extends Component {
             uploadProgress:
               "Upload progress: " +
               Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-              "%"
+              "%",
           });
-        }
+        },
       })
-      .then(result => {
+      .then((result) => {
         const img_url = result.data.secure_url;
 
         this.setState({
           image: result.data.secure_url,
-          uploadedImg: result.data.secure_url
+          uploadedImg: result.data.secure_url,
         });
-        fetch(`http://localhost:3200/signup_users/${this.state.userId}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            profileImg: img_url
-          })
-        });
+        fetch(
+          `http://udemy-clone-json-server.herokuapp.com/signup_users/${this.state.userId}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              profileImg: img_url,
+            }),
+          }
+        );
         console.log(img_url);
       });
   };
@@ -106,7 +107,7 @@ class Profile extends Component {
                       style={{
                         width: "65%",
                         height: "auto",
-                        padding: "10px"
+                        padding: "10px",
                       }}
                     />
                     <input

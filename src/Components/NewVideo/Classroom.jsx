@@ -18,8 +18,7 @@ class Classroom extends Component {
           userId: data.id,
         })
       : this.setState({ userId: null });
-
-    const APIURL = "http://localhost:3200/videoUploads";
+    const APIURL = "http://udemy-clone-json-server.herokuapp.com/videoUploads";
     fetch(APIURL)
       .then((res) => res.json())
       .then((result) =>
@@ -33,7 +32,7 @@ class Classroom extends Component {
 
   starRating = (video) => {};
   favouriteVideos = () => {
-    const api_url = `http://localhost:3200/signup_users/${this.state.userId}`;
+    const api_url = `http://udemy-clone-json-server.herokuapp.com/signup_users/${this.state.userId}`;
     // this.state.liked
     //   ? fetch(api_url, {
     //       method: "PATCH",

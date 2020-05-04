@@ -126,7 +126,8 @@ class VideoUpload extends Component {
       rating: 0,
     };
     console.log(postData);
-    const JsonApiURL = "http://localhost:3200/videoUploads";
+    const JsonApiURL =
+      "http://udemy-clone-json-server.herokuapp.com/signup_users";
     fetch(JsonApiURL, {
       method: "POST",
       body: JSON.stringify(postData),

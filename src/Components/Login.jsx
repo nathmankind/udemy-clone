@@ -15,7 +15,8 @@ class Login extends Component {
   login = (res) => {
     console.log(res);
 
-    const JsonApiURL = "http://localhost:3200/signup_users";
+    const JsonApiURL =
+      "http://udemy-clone-json-server.herokuapp.com/signup_users";
     const user_email = res.profileObj.email;
     console.log(user_email);
     let user_details;

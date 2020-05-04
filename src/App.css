@@ -85,6 +85,7 @@
   box-shadow: 0px 1px 5px 3px rgba(86, 89, 95, 0.45);
   margin: auto;
   display: flex;
+  flex-wrap: wrap;
 }
 .profile-box button,
 .upload-button {
@@ -107,6 +108,7 @@
   box-shadow: 0px 1px 5px 3px rgba(86, 89, 95, 0.45);
   margin: auto;
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 5%;
 }
 

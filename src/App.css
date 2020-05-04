@@ -276,6 +276,7 @@ nav button.login-button {
 nav button.login-button a {
   color: black;
 }
+/* like button styled */
 .like-button {
   padding: 4px 20px;
   background: #517abb;

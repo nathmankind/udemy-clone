@@ -13,6 +13,7 @@ import Login from "./Components/Login";
 import Instructor from "./Components/InstructorReg";
 import VideoUpload from "./Components/VideoUpload";
 import Classroom from "./Components/NewVideo/Classroom";
+import ErrorPage from "./Components/ErrorPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/instructor-registration" component={Instructor} />
           <Route path="/upload-video" component={VideoUpload} />
           <Route path="/new-courses" component={Classroom} />
+          <Route path="*" component={ErrorPage} />
         </Switch>
       </Router>
     </div>

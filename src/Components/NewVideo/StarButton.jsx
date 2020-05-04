@@ -19,4 +19,4 @@ const StarButton = ({ video, starNumber }) => {
     />
   );
 };
-export default NewVideoItem;
+export default StarButton;

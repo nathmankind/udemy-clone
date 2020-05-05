@@ -21,11 +21,12 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-star-ratings-component": "^1.0.1",
-    "video-react": "^0.14.1"
+    "video-react": "^0.14.1",
+    "serve": "^11.3.0"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start":"serve -s build",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
